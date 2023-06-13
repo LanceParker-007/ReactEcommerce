@@ -1,8 +1,14 @@
 import React from 'react'
+import HeroSection from './components/HeroSection'
 
 const About = () => {
+
+  const data = {
+    name:"About Us",
+  };
+
   return (
-    <div>About</div>
+    <HeroSection myData={data}/>
   )
 }
 
