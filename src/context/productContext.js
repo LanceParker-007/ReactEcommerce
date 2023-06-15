@@ -37,12 +37,14 @@ const AppProvider = ({ children }) => {
   }
 
   // my 2nd api call to get single product
-  const getsingleProduct = async (url) => {
+  const getSingleProduct = async (url) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
 
     try {
       const res = await axios.get(url);
       const singleProduct = await res.data;
+      // console.log(singleProduct);
+      
       dispatch({
         type: "SET_SINGLE_PRODUCT", payload: singleProduct
       });
@@ -59,7 +61,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{
-      ...state, getsingleProduct
+      ...state, getSingleProduct
     }}>
       {children}
     </AppContext.Provider>
