@@ -10,14 +10,14 @@ const ProductReducer = (state, action) => {
     }
 
     if (action.type === "SET_API_DATA") {
-        const featureData = action.payload.filter((curElem) => curElem.featured === true);
+        const featureProducts = action.payload.filter((curElem) => curElem.featured === true);
 
         return {
             ...state,
             isLoading: false,
             isError: false,
             products: action.payload,
-            featureProducts: featureData,
+            featureProducts: featureProducts,
         };
     }
 
