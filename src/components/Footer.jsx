@@ -5,69 +5,71 @@ import { NavLink } from 'react-router-dom';
 import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
-    return (
-        <Wrapper>
-            <section className="contact-short">
-                <div className="grid grid-two-column">
-                    <div>
-                        <h3>Ready to get started?</h3>
-                        <h3>Talk to us today</h3>
-                    </div>
-                    <div>
-                        <Button>
-                            <NavLink to="/contact">Get Started</NavLink>
-                        </Button>
-                    </div>
-                </div>
-            </section>
-            {/* main footer */}
-            <footer>
-                <div className="container grid grid-four-column">
-                    <div className="footer-about">
-                        <h3>React Ecommerce</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, tempore?</p>
-                    </div>
-                    <div className='footer-subscribe'>
-                        <h3>Subscribe to get important updates</h3>
-                        <form action="#">
-                            <input type="email" name="email" placeholder="your e-mail" />
-                            <input type="submit" value="Subscribe" />
-                        </form>
-                    </div>
-                    <div className="footer-social">
-                        <h3>Follow us</h3>
-                        <div className="footer-social--icons">
-                            <div>
-                                <FaDiscord className="icons" />
-                            </div>
-                            <div>
-                                <FaInstagram className="icons" />
-                            </div>
-                            <div>
-                                <a
-                                    href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-                                    target="_blank" rel="noreferrer">
-                                    <FaYoutube className="icons" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="footer-contact">
-                        {/* <a href="tel:123456789">+91 123456789</a> */}
-                        <h3>Call Us</h3>
-                        <h3>+91 12345678978</h3>
-                    </div>
-                </div>
-                {/* bottom footer */}
-                <div className="footer-bottom--section">
-                    <hr />
-                    <div className="container grid grid-two-column">
-                        <p>@{new Date().getFullYear()} React Ecommerce. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </footer>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <section className="contact-short">
+        <div className="grid grid-two-column">
+          <div>
+            <h3>Ready to get started?</h3>
+            <h3>Talk to us today</h3>
+          </div>
+          <div>
+            <Button>
+              <NavLink to="/contact" onClick={() => {
+                console.log("Clicked on contact");
+              }}>Get Started</NavLink>
+            </Button>
+          </div>
+        </div>
+      </section>
+      {/* main footer */}
+      <footer>
+        <div className="container grid grid-four-column">
+          <div className="footer-about">
+            <h3>React Ecommerce</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, tempore?</p>
+          </div>
+          <div className='footer-subscribe'>
+            <h3>Subscribe to get important updates</h3>
+            <form action="#">
+              <input type="email" name="email" placeholder="your e-mail" />
+              <input type="submit" value="Subscribe" />
+            </form>
+          </div>
+          <div className="footer-social">
+            <h3>Follow us</h3>
+            <div className="footer-social--icons">
+              <div>
+                <FaDiscord className="icons" />
+              </div>
+              <div>
+                <FaInstagram className="icons" />
+              </div>
+              <div>
+                <a
+                  href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
+                  target="_blank" rel="noreferrer">
+                  <FaYoutube className="icons" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="footer-contact">
+            {/* <a href="tel:123456789">+91 123456789</a> */}
+            <h3>Call Us</h3>
+            <h3>+91 12345678978</h3>
+          </div>
+        </div>
+        {/* bottom footer */}
+        <div className="footer-bottom--section">
+          <hr />
+          <div className="container grid grid-two-column">
+            <p>@{new Date().getFullYear()} React Ecommerce. All Rights Reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
