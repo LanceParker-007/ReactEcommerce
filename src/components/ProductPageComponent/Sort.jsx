@@ -3,44 +3,53 @@ import { BsFillGridFill, BsList } from "react-icons/bs";
 import { useFilterContext } from "../../context/filter_context";
 
 const Sort = () => {
+  const { filter_products, grid_view, setGridView, setListView, sorting } =
+    useFilterContext();
 
-    const { filter_products, grid_view, setGridView, setListView } = useFilterContext();
-
-    return (
-        <Wrapper className="sort-section">
-            {/* 1st column */}
-            <div className="sorting-list--grid">
-                <button className={grid_view ? "sort-btn active" : "sort-btn"} onClick={setGridView}>
-                    <BsFillGridFill className="icon" />
-                </button>
-                <button className={grid_view ? "sort-btn" : "sort-btn active"} onClick={setListView}>
-                    <BsList className="icon" />
-                </button>
-            </div>
-            {/* 2nd column */}
-            <div className="product-data">
-                {
-                    filter_products.length
-                } products available
-            </div>
-            {/* 3rd column */}
-            <div className="sort-selection">
-                <form action="#">
-                    <label htmlFor="sort"></label>
-                    <select name="sort" id="sort" className="sort-selection--style">
-                        <option value="lowest">Price(lowest to highest)</option>
-                        <br />
-                        <option value="lowest">Price(highest to lowest)</option>
-                        <br />
-                        <option value="lowest">Price(a-z)</option>
-                        <br />
-                        <option value="lowest">Price(z-a)</option>
-                    </select>
-                </form>
-            </div>
-        </Wrapper>
-    )
-}
+  return (
+    <Wrapper className="sort-section">
+      {/* 1st column */}
+      <div className="sorting-list--grid">
+        <button
+          className={grid_view ? "sort-btn active" : "sort-btn"}
+          onClick={setGridView}
+        >
+          <BsFillGridFill className="icon" />
+        </button>
+        <button
+          className={grid_view ? "sort-btn" : "sort-btn active"}
+          onClick={setListView}
+        >
+          <BsList className="icon" />
+        </button>
+      </div>
+      {/* 2nd column */}
+      <div className="product-data">
+        {filter_products.length} products available
+      </div>
+      {/* 3rd column */}
+      <div className="sort-selection">
+        <form action="#">
+          <label htmlFor="sort"></label>
+          <select
+            name="sort"
+            id="sort"
+            className="sort-selection--style"
+            onClick={sorting}
+          >
+            <option value="lowest">Price(lowest to highest)</option>
+            <br />
+            <option value="highest">Price(highest to lowest)</option>
+            <br />
+            <option value="a-z">Price(a-z)</option>
+            <br />
+            <option value="z-a">Price(z-a)</option>
+          </select>
+        </form>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   display: flex;
@@ -82,4 +91,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default Sort
+export default Sort;
