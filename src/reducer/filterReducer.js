@@ -1,10 +1,24 @@
 const filterReducer = (state, action) => {
   switch (action.type) {
     case "LOAD_FILTER_PRODUCTS":
+      let priceArr = action.payload.map((curElem) => curElem.price);
+      //1st way
+      let maxPrice = Math.max(0, ...priceArr);
+
+      //2nd way
+      //   let maxPrice = priceArr.reduce(
+      //     (initialValue, curVal) => Math.max(initialValue, curVal),
+      //     0 //initialvalue = 0
+      //   );
+
+      //3rd way
+      //   let maxPrice = Math.max.apply(null, priceArr);//null or undefined
+
       return {
         ...state,
         filter_products: [...action.payload], //instead of using original data we are using copy of data
         all_products: [...action.payload],
+        filters: { ...state.filters, maxPrice: maxPrice, price: maxPrice },
       };
 
     case "SET_GRID_VIEW":
@@ -80,7 +94,7 @@ const filterReducer = (state, action) => {
       }
 
       if (company) {
-        console.log(company, "Filter");
+        // console.log(company, "Filter");
         tempFilterProduct = tempFilterProduct.filter((curElem) => {
           return curElem.company === company.toLowerCase() || company === "All";
         });
@@ -92,7 +106,7 @@ const filterReducer = (state, action) => {
           //   return curElem.colors.some((elem) => elem === color) || color === "All";
           return curElem.colors.includes(color) || color === "All";
         });
-        console.log(tempFilterProduct);
+        // console.log(tempFilterProduct);
       }
 
       return {

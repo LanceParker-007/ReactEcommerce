@@ -24,6 +24,7 @@ const FilterSection = () => {
 
   return (
     <Wrapper>
+      {/*Search Filter */}
       <div className="filter-search">
         <form onSubmit={(event) => event.preventDefault()}>
           <input
@@ -35,6 +36,7 @@ const FilterSection = () => {
           />
         </form>
       </div>
+      {/* Category Search Filter */}
       <div className="filter-category">
         <h3>Category</h3>
         <div>
@@ -54,6 +56,7 @@ const FilterSection = () => {
           })}
         </div>
       </div>
+      {/* Company Search Filter */}
       <div className="filter-company">
         <h3>Company</h3>
         <form action="#">
@@ -73,6 +76,7 @@ const FilterSection = () => {
           </select>
         </form>
       </div>
+      {/* Color Search Filter */}
       <div className="filter-colors colors">
         <h3>Colors</h3>
         <div className="filter-color-style">
@@ -106,6 +110,10 @@ const FilterSection = () => {
             );
           })}
         </div>
+      </div>
+      {/* Price Search Filter */}
+      <div className="filter_price">
+        <h3>Price</h3>
       </div>
     </Wrapper>
   );
