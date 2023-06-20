@@ -49,6 +49,34 @@ const filterReducer = (state, action) => {
         filter_products: newSortData,
       };
 
+    case "UPDATE_FILTERS_VALUE":
+      const { name, value } = action.payload;
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [name]: value, //name kya hai text for search, 123456789, [5]=11, 1234116789
+        },
+      };
+
+    case "FILTER_PRODUCTS":
+      let { all_products } = state;
+      let tempFilterProduct = [...all_products];
+
+      const { text } = state.filters;
+      //   console.log(text, "d");
+      if (text) {
+        tempFilterProduct.filter((curElem) => {
+          return curElem.name.toLowerCase().includes(text);
+        });
+        console.log(tempFilterProduct);
+      }
+
+      return {
+        ...state,
+        filter_products: tempFilterProduct,
+      };
+
     default:
       return state;
   }
