@@ -80,9 +80,11 @@ const filterReducer = (state, action) => {
       }
 
       if (company) {
+        console.log(company, "Filter");
         tempFilterProduct = tempFilterProduct.filter((curElem) => {
-          return curElem.company === company || company === "All";
+          return curElem.company === company.toLowerCase() || company === "All";
         });
+        console.log(tempFilterProduct);
       }
 
       return {

@@ -3,7 +3,7 @@ import { useFilterContext } from "../../context/filter_context";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, company },
+    filters: { text, category },
     all_products,
     updateFilterValue,
   } = useFilterContext();
@@ -11,16 +11,16 @@ const FilterSection = () => {
   //TO GET THE UNIQUE DATA OF EACH FIELDS
 
   const getUniqueData = (data, property) => {
-    let newVal = data.map((curElem) => {
-      return curElem[property];
-    });
+    let newVal = data.flatMap((curElem) => curElem[property]);
     newVal = ["All", ...new Set(newVal)];
     return newVal;
   };
+
   //We need unique data
-  const categoryOnlyData = getUniqueData(all_products, "category");
-  const companyOnlyData = getUniqueData(all_products, "company");
-  console.log(companyOnlyData);
+  const categoryData = getUniqueData(all_products, "category");
+  const companyData = getUniqueData(all_products, "company");
+  const colorsData = getUniqueData(all_products, "colors");
+  //   console.log(colorsData);
 
   return (
     <Wrapper>
@@ -38,12 +38,13 @@ const FilterSection = () => {
       <div className="filter-category">
         <h3>Category</h3>
         <div>
-          {categoryOnlyData.map((curElem, index) => {
+          {categoryData.map((curElem, index) => {
             return (
               <button
                 key={index}
                 type="button"
                 name="category"
+                className={curElem === category ? "active" : ""}
                 onClick={updateFilterValue}
                 value={curElem}
               >
@@ -53,24 +54,26 @@ const FilterSection = () => {
           })}
         </div>
       </div>
-      <div className="filter-category">
+      <div className="filter-company">
         <h3>Company</h3>
-        <div>
-          {companyOnlyData.map((curElem, index) => {
-            return (
-              <button
-                key={index}
-                type="button"
-                name="company"
-                onClick={updateFilterValue}
-                value={curElem}
-              >
-                {curElem}
-              </button>
-            );
-          })}
-        </div>
+        <form action="#">
+          <select
+            name="company"
+            id="company"
+            className="filter-company--select"
+            onClick={updateFilterValue}
+          >
+            {companyData.map((curElem, index) => {
+              return (
+                <option key={index} value={curElem} name="company">
+                  {curElem}
+                </option>
+              );
+            })}
+          </select>
+        </form>
       </div>
+      div
     </Wrapper>
   );
 };
