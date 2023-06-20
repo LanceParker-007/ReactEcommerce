@@ -77,7 +77,7 @@ const filterReducer = (state, action) => {
       let { all_products } = state;
       let tempFilterProduct = [...all_products];
 
-      const { text, category, company, color } = state.filters;
+      const { text, category, company, color, price } = state.filters;
 
       if (text.length) {
         tempFilterProduct = tempFilterProduct.filter((curElem) => {
@@ -109,9 +109,30 @@ const filterReducer = (state, action) => {
         // console.log(tempFilterProduct);
       }
 
+      if (price) {
+        tempFilterProduct = tempFilterProduct.filter((curElem) => {
+          return curElem.price <= price;
+        });
+        console.log(tempFilterProduct);
+      }
+
       return {
         ...state,
         filter_products: tempFilterProduct,
+      };
+
+    case "CLEAR_FILTERS":
+      return {
+        ...state,
+        filters: {
+          text: "",
+          category: "All",
+          company: "All",
+          color: "All",
+          maxPrice: state.filters.maxPrice,
+          price: state.filters.maxPrice,
+          minPrice: 0,
+        },
       };
 
     default:
