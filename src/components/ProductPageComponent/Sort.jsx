@@ -17,7 +17,7 @@ const Sort = () => {
           <BsFillGridFill className="icon" />
         </button>
         <button
-          className={grid_view ? "sort-btn" : "sort-btn active"}
+          className={!grid_view ? "sort-btn active" : "sort-btn"}
           onClick={setListView}
         >
           <BsList className="icon" />
