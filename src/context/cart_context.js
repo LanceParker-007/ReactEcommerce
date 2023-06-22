@@ -41,14 +41,25 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("reactEcommerceCart", JSON.stringify(state.cart));
   }, [state.cart]);
 
+  //To remove item
   const removeItem = (id) => {
     dispatch({
       type: "REMOVE_ITEM",
       payload: id,
     });
   };
+
+  //To clear cart
+  const clearCart = () => {
+    dispatch({
+      type: "CLEAR_CART",
+    });
+  };
+
   return (
-    <CartContext.Provider value={{ ...state, addToCart, removeItem }}>
+    <CartContext.Provider
+      value={{ ...state, addToCart, removeItem, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
