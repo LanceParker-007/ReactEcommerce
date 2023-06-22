@@ -113,7 +113,7 @@ const filterReducer = (state, action) => {
         tempFilterProduct = tempFilterProduct.filter((curElem) => {
           return curElem.price <= price;
         });
-        console.log(tempFilterProduct);
+        // console.log(tempFilterProduct);
       }
 
       return {
