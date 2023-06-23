@@ -104,28 +104,49 @@ const cartReducer = (state, action) => {
     return { ...state, cart: updatedProduct };
   }
 
-  if (action.type === "CART_TOTAL_ITEM") {
-    let updatedItemVal = state.cart.reduce((acc, curElem) => {
-      let { amount } = curElem;
-      acc += amount;
-      return acc;
-    }, 0);
+  // if (action.type === "CART_TOTAL_ITEM") {
+  //   let updatedItemVal = state.cart.reduce((acc, curElem) => {
+  //     let { amount } = curElem;
+  //     acc += amount;
+  //     return acc;
+  //   }, 0);
+
+  //   return {
+  //     ...state,
+  //     total_item: updatedItemVal,
+  //   };
+  // }
+
+  // if (action.type === "CART_TOTAL_PRICE") {
+  //   let total_price = state.cart.reduce((acc, curElem) => {
+  //     let { price, amount } = curElem;
+  //     acc += price * amount;
+  //     return acc;
+  //   }, 0);
+  //   return {
+  //     ...state,
+  //     total_price: total_price, //you can simply write total_price
+  //   };
+  // }
+
+  if ((action.type = "CART_ITEM_PRICE_TOTAL")) {
+    let { total_item, total_price } = state.cart.reduce(
+      (accumulator, curElem) => {
+        let { price, amount } = curElem;
+        accumulator.total_item += amount;
+        accumulator.total_price += price * amount;
+        return accumulator;
+      },
+      {
+        total_item: 0,
+        total_price: 0,
+      }
+    );
 
     return {
       ...state,
-      total_item: updatedItemVal,
-    };
-  }
-
-  if (action.type === "CART_TOTAL_PRICE") {
-    let total_price = state.cart.reduce((acc, curElem) => {
-      let { price, amount } = curElem;
-      acc += price * amount;
-      return acc;
-    }, 0);
-    return {
-      ...state,
-      total_price: total_price, //you can simply write total_price
+      total_item: total_item,
+      total_price: total_price,
     };
   }
 
