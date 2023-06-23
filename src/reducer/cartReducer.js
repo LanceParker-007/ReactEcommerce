@@ -61,30 +61,87 @@ const cartReducer = (state, action) => {
     };
   }
 
-  // --------------------------------
+  // // --------------------------------MyCode--------------------------------
+  // Use map instead
+  // if (action.type === "INCREASE_ITEM") {
+  //   state.cart.forEach((curElem) => {
+  //     if (curElem.id === action.payload && curElem.amount + 1 < curElem.max) {
+  //       curElem.amount += 1;
+  //     }
+  //   });
+
+  //   return {
+  //     ...state,
+  //   };
+  // }
+  // if (action.type === "DECREASE_ITEM") {
+  //   state.cart.forEach((curElem) => {
+  //     if (curElem.id === action.payload && curElem.amount - 1 > 0) {
+  //       curElem.amount -= 1;
+  //     }
+  //   });
+
+  //   return {
+  //     ...state,
+  //   };
+  // }
+  // // --------------------------------
+
+  // Thapa Code
+
+  // --------------------------------MyCode--------------------------------
   if (action.type === "INCREASE_ITEM") {
-    state.cart.forEach((curElem) => {
-      if (curElem.id === action.payload && curElem.amount + 1 < curElem.max) {
-        curElem.amount += 1;
+    let updatedProduct = state.cart.map((curElem) => {
+      if (curElem.id === action.payload) {
+        let incAmount = curElem.amount + 1;
+
+        if (incAmount >= curElem.max) {
+          incAmount = curElem.max;
+        }
+
+        return {
+          ...curElem,
+          amount: incAmount,
+        };
+      } else {
+        return curElem;
       }
     });
-
-    return {
-      ...state,
-    };
+    return { ...state, cart: updatedProduct };
   }
+
   if (action.type === "DECREASE_ITEM") {
-    state.cart.forEach((curElem) => {
-      if (curElem.id === action.payload && curElem.amount - 1 > 0) {
-        curElem.amount -= 1;
+    let updatedProduct = state.cart.map((curElem) => {
+      if (curElem.id === action.payload) {
+        let decAmount = curElem.amount - 1;
+
+        if (decAmount <= 1) {
+          decAmount = 1;
+        }
+
+        return {
+          ...curElem,
+          amount: decAmount,
+        };
+      } else {
+        return curElem;
       }
     });
+    return { ...state, cart: updatedProduct };
+  }
+
+  if (action.type === "CART_TOTAL_ITEM") {
+    let updatedItemVal = state.cart.reduce((acc, curElem) => {
+      let { amount } = curElem;
+      acc += amount;
+      return acc;
+    }, 0);
 
     return {
       ...state,
+      total_item: updatedItemVal,
     };
   }
-  // --------------------------------
 
   return state; // it must be return
 };
