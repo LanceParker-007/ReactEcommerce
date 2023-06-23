@@ -56,9 +56,34 @@ const CartProvider = ({ children }) => {
     });
   };
 
+  // -----
+  // Increase Item Count
+  const setIncrease = (id) => {
+    dispatch({
+      type: "INCREASE_ITEM",
+      payload: id,
+    });
+  };
+
+  //Decrease Item Count
+  const setDecrease = (id) => {
+    dispatch({
+      type: "DECREASE_ITEM",
+      payload: id,
+    });
+  };
+  // -----
+
   return (
     <CartContext.Provider
-      value={{ ...state, addToCart, removeItem, clearCart }}
+      value={{
+        ...state,
+        addToCart,
+        removeItem,
+        clearCart,
+        setIncrease,
+        setDecrease,
+      }}
     >
       {children}
     </CartContext.Provider>

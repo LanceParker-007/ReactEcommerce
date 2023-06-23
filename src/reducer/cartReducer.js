@@ -1,23 +1,46 @@
 const cartReducer = (state, action) => {
   if (action.type === "ADD_TO_CART") {
     let { id, color, amount, product } = action.payload;
-    console.log("Add to cart Reducer", product.image[0]);
-    let cartProduct;
 
-    cartProduct = {
-      id: id + color,
-      name: product.name,
-      color,
-      amount,
-      image: product.image[0],
-      price: product.price,
-      max: product.stock,
-    };
+    //Tackle the existing product
+    let existingProduct = state.cart.find(
+      (curItem) => curItem.id === id + color
+    );
 
-    return {
-      ...state,
-      cart: [...state.cart, cartProduct],
-    };
+    if (existingProduct) {
+      let updatedCart = state.cart.map((curElem) => {
+        if (curElem.id === id + color) {
+          let newAmount = curElem.amount + amount;
+          if (newAmount >= curElem.max) newAmount = curElem.max;
+          return {
+            ...curElem,
+            amount: newAmount,
+          };
+        } else {
+          return curElem;
+        }
+      });
+      return {
+        ...state,
+        cart: updatedCart,
+      };
+    } else {
+      let cartProduct;
+      cartProduct = {
+        id: id + color,
+        name: product.name,
+        color,
+        amount,
+        image: product.image[0].url,
+        price: product.price,
+        max: product.stock,
+      };
+
+      return {
+        ...state,
+        cart: [...state.cart, cartProduct],
+      };
+    }
   }
 
   if (action.type === "REMOVE_ITEM") {
@@ -37,6 +60,31 @@ const cartReducer = (state, action) => {
       cart: [],
     };
   }
+
+  // --------------------------------
+  if (action.type === "INCREASE_ITEM") {
+    state.cart.forEach((curElem) => {
+      if (curElem.id === action.payload && curElem.amount + 1 < curElem.max) {
+        curElem.amount += 1;
+      }
+    });
+
+    return {
+      ...state,
+    };
+  }
+  if (action.type === "DECREASE_ITEM") {
+    state.cart.forEach((curElem) => {
+      if (curElem.id === action.payload && curElem.amount - 1 > 0) {
+        curElem.amount -= 1;
+      }
+    });
+
+    return {
+      ...state,
+    };
+  }
+  // --------------------------------
 
   return state; // it must be return
 };
