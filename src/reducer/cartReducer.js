@@ -61,32 +61,6 @@ const cartReducer = (state, action) => {
     };
   }
 
-  // // --------------------------------MyCode--------------------------------
-  // Use map instead
-  // if (action.type === "INCREASE_ITEM") {
-  //   state.cart.forEach((curElem) => {
-  //     if (curElem.id === action.payload && curElem.amount + 1 < curElem.max) {
-  //       curElem.amount += 1;
-  //     }
-  //   });
-
-  //   return {
-  //     ...state,
-  //   };
-  // }
-  // if (action.type === "DECREASE_ITEM") {
-  //   state.cart.forEach((curElem) => {
-  //     if (curElem.id === action.payload && curElem.amount - 1 > 0) {
-  //       curElem.amount -= 1;
-  //     }
-  //   });
-
-  //   return {
-  //     ...state,
-  //   };
-  // }
-  // // --------------------------------
-
   // Thapa Code
 
   // --------------------------------MyCode--------------------------------
@@ -143,7 +117,45 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === "CART_TOTAL_PRICE") {
+    let total_price = state.cart.reduce((acc, curElem) => {
+      let { price, amount } = curElem;
+      acc += price * amount;
+      return acc;
+    }, 0);
+    return {
+      ...state,
+      total_price: total_price, //you can simply write total_price
+    };
+  }
+
   return state; // it must be return
 };
 
 export default cartReducer;
+
+// // --------------------------------MyCode--------------------------------
+// Use map instead
+// if (action.type === "INCREASE_ITEM") {
+//   state.cart.forEach((curElem) => {
+//     if (curElem.id === action.payload && curElem.amount + 1 < curElem.max) {
+//       curElem.amount += 1;
+//     }
+//   });
+
+//   return {
+//     ...state,
+//   };
+// }
+// if (action.type === "DECREASE_ITEM") {
+//   state.cart.forEach((curElem) => {
+//     if (curElem.id === action.payload && curElem.amount - 1 > 0) {
+//       curElem.amount -= 1;
+//     }
+//   });
+
+//   return {
+//     ...state,
+//   };
+// }
+// // --------------------------------
