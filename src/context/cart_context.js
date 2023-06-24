@@ -8,7 +8,7 @@ const CartContext = createContext(); //Create Context
 const CartProvider = ({ children }) => {
   const getLocalCartData = () => {
     let localCartData = JSON.parse(localStorage.getItem("reactEcommerceCart"));
-    if (localCartData === []) {
+    if (!localCartData || localCartData === "undefined") {
       return [];
     } else {
       return localCartData;
