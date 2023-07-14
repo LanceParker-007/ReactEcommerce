@@ -3,13 +3,20 @@
 // Consumer => useContext Hook
 
 import axios from "axios";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import reducer from "../reducer/productReducer";
 
 const AppContext = createContext();
 const API = "https://api.pujakaitem.com/api/products";
 
 const AppProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const initialState = {
     isLoading: false,
@@ -17,8 +24,8 @@ const AppProvider = ({ children }) => {
     products: [],
     featureProducts: [],
     isSingleLoading: false,
-    singleProduct: {}, // is an object 
-  }
+    singleProduct: {}, // is an object
+  };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -29,12 +36,13 @@ const AppProvider = ({ children }) => {
       const products = await res.data;
       // console.log(products);
       dispatch({
-        type: "SET_API_DATA", payload: products
-      })
+        type: "SET_API_DATA",
+        payload: products,
+      });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
     }
-  }
+  };
 
   // my 2nd api call to get single product
   const getSingleProduct = async (url) => {
@@ -44,25 +52,30 @@ const AppProvider = ({ children }) => {
       const res = await axios.get(url);
       const singleProduct = await res.data;
       // console.log(singleProduct);
-      
-      dispatch({
-        type: "SET_SINGLE_PRODUCT", payload: singleProduct
-      });
 
+      dispatch({
+        type: "SET_SINGLE_PRODUCT",
+        payload: singleProduct,
+      });
     } catch (error) {
       dispatch({ type: "Set_SINGLE_ERROR" });
     }
-  }
+  };
 
   useEffect(() => {
     getProducts(API);
     // console.log("Context", state.products);
-  }, [])
+  }, []);
 
   return (
-    <AppContext.Provider value={{
-      ...state, getSingleProduct
-    }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        getSingleProduct,
+        isAuthenticated,
+        setIsAuthenticated,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
@@ -71,6 +84,6 @@ const AppProvider = ({ children }) => {
 // custom hooks
 const useProductContext = () => {
   return useContext(AppContext);
-}
+};
 
 export { AppProvider, AppContext, useProductContext };

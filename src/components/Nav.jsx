@@ -5,13 +5,15 @@ import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useState } from "react";
 import { useCartContext } from "../context/cart_context";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "../styles/Button";
+import { useProductContext } from "../context/productContext";
 
 const Nav = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  // const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const { total_item } = useCartContext();
   const [menuIcon, setMenuIcon] = useState();
+  const { isAuthenticated, setIsAuthenticated } = useProductContext();
 
   const Nav = styled.nav`
     .navbar-lists {
@@ -187,15 +189,9 @@ const Nav = () => {
           </li>
           {/* -------Auth0------- */}
           {isAuthenticated ? (
-            <Button
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-            >
-              Log Out
-            </Button>
+            <Button onClick={() => setIsAuthenticated(false)}>Log Out</Button>
           ) : (
-            <Button onClick={() => loginWithRedirect()}>Log In</Button>
+            <Button onClick={() => setIsAuthenticated(true)}>Log In</Button>
           )}
 
           {/* ------------------- */}
